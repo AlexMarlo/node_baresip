@@ -1,0 +1,23 @@
+{
+  "name": "node_baresip",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": "",
+  "keywords": [
+    "Node.js",
+    "Eclipse",
+    "Nodeclipse"
+  ],
+  "author": "xanm",
+  "dependencies": {
+  },
+  "engines": [
+	  "node >= 0.12.0"
+  ],
+  "license": "BSD",
+  "readmeFilename": "README.md"
+}
