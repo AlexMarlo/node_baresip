@@ -1,6 +1,6 @@
 {
   "name": "node_baresip",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,9 +8,9 @@
   },
   "repository": "",
   "keywords": [
-    "Node.js",
-    "Eclipse",
-    "Nodeclipse"
+    "baresip",
+    "node_baresip",
+    "sip"
   ],
   "author": "xanm",
   "dependencies": {
