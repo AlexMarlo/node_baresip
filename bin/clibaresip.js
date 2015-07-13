@@ -1,12 +1,12 @@
 var readline = require('readline');
 var stringHelper = require( '../lib/utils/stringhelper');
-var CallManager = require( '../lib/callmanager');
+var Baresip = require( '../lib/baresip');
 
 var cliBaresip = exports = module.exports = {};
 var commandHistory = [];
 
 function completer(line) {
-  var completions = 'help,list,dial,dial 5555@192.168.0.108,hu,hungup,l,list'.split(',');
+  var completions = 'help,list,dial,dial 5555@192.168.0.108,hu,hungup,l,list,a,answer'.split(',');
   var hits = completions.filter(function(c) { return c.indexOf(line) == 0 })
   return [hits.length ? hits : completions, line]
 }
@@ -25,11 +25,17 @@ cliBaresip.run = function(){
 		process.exit(0);
 	});
 
-	cliBaresip.callManager = new CallManager();
-	cliBaresip.callManager.run( function( err){
+	cliBaresip.Baresip = new Baresip();
+    cliBaresip.Baresip.on( "incoming_call", function( call){
+        console.log( "New call", call);
+    });
+    cliBaresip.Baresip.on( "end_call", function( call){
+        console.log( "Del call", call);
+    });
+	cliBaresip.Baresip.run( function( err){
 		if( err)
 		{
-			console.log( " Error at CallManager run:", err);
+			console.log( " Error at Baresip run:", err);
 			process.exit(0);
 		}
 	})
@@ -44,6 +50,8 @@ cliBaresip.dispatch = function( command){
 		case "help":
 			console.log( " help");
 			console.log( " list");
+			console.log( " answer");
+			console.log( " hungup");
 			console.log( " dial 234324@localhost");
 			console.log( " exit/q/quit");
 			break;
@@ -57,7 +65,7 @@ cliBaresip.dispatch = function( command){
 			}
 			
 			var sipAddress = command[1];
-			cliBaresip.callManager.dial( sipAddress, function( err, result){
+			cliBaresip.Baresip.dial( sipAddress, function( err, result){
 				if( err)
 					console.log( "dial err:", err);
 				else
@@ -72,11 +80,27 @@ cliBaresip.dispatch = function( command){
 				break;
 			}
 
-			cliBaresip.callManager.hangup( function( err, result){
+			cliBaresip.Baresip.hangup( function( err, result){
 				if( err)
 					console.log( "hangup err:", err);
 				else
 					console.log( "hangup result:", result);
+			});
+			break;
+
+
+		case "a":
+		case "answer":
+			if( command.length < 1){
+				console.log( "call not enough params! example: answer");
+				break;
+			}
+
+			cliBaresip.Baresip.answer( function( err, result){
+				if( err)
+					console.log( "answer err:", err);
+				else
+					console.log( "answer result:", result);
 			});
 			break;
 
@@ -87,7 +111,7 @@ cliBaresip.dispatch = function( command){
 				break;
 			}
 
-			console.log( cliBaresip.callManager.getCurrentCalls());
+			console.log( cliBaresip.Baresip.getCurrentCalls());
 			break;
 
     	case "exit":
