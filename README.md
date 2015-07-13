@@ -1,4 +1,4 @@
-# node_baresip
+# Node Baresip
 
 
 ## Objective
@@ -24,6 +24,5 @@ Http module in baresip must be enabled.
 
 ## Developing
 
-
-
-# node_baresip
+## Inatall
+npm install node_baresip
