@@ -6,7 +6,7 @@ var cliBaresip = exports = module.exports = {};
 var commandHistory = [];
 
 function completer(line) {
-  var completions = 'help,list,dial,dial 5555@192.168.0.108,hu,hungup,l,list,a,answer'.split(',');
+  var completions = 'help,list,dial,dial 5555@192.168.0.108,hu,hungup,l,list,a,answer,m'.split(',');
   var hits = completions.filter(function(c) { return c.indexOf(line) == 0 })
   return [hits.length ? hits : completions, line]
 }
@@ -88,14 +88,8 @@ cliBaresip.dispatch = function( command){
 			});
 			break;
 
-
 		case "a":
 		case "answer":
-			if( command.length < 1){
-				console.log( "call not enough params! example: answer");
-				break;
-			}
-
 			cliBaresip.Baresip.answer( function( err, result){
 				if( err)
 					console.log( "answer err:", err);
@@ -104,13 +98,18 @@ cliBaresip.dispatch = function( command){
 			});
 			break;
 
+		case "m":
+		case "mute":
+			cliBaresip.Baresip.muteUnmute( function( err, result){
+				if( err)
+					console.log( "mute err:", err);
+				else
+					console.log( "mute result:", result);
+			});
+			break;
+
 		case "l":
 		case "list":
-			if( command.length < 1){
-				console.log( "call not enough params! example: hungup");
-				break;
-			}
-
 			console.log( cliBaresip.Baresip.getCurrentCalls());
 			break;
 
