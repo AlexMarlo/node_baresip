@@ -29,6 +29,9 @@ cliBaresip.run = function(){
     cliBaresip.Baresip.on( "incoming_call", function( call){
         console.log( "New call", call);
     });
+    cliBaresip.Baresip.on( "established_call", function( call){
+        console.log( "Established call", call);
+    });
     cliBaresip.Baresip.on( "end_call", function( call){
         console.log( "Del call", call);
     });

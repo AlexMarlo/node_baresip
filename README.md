@@ -7,16 +7,18 @@ This module will help to control baresip from nodejs.
 Main features
 
 Control
-*dial
-*answer
-*hangup
+* dial
+* answer
+* hangup
+* mute/unmute
 
 Events
-*end call
-*incoming call
+* end call
+* incoming call
+* established_call
 
 Info
-*call list
+* call list
 
 ## Usage
 Http module in baresip must be enabled.
