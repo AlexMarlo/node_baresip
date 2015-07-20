@@ -6,7 +6,7 @@ var cliBaresip = exports = module.exports = {};
 var commandHistory = [];
 
 function completer(line) {
-  var completions = 'help,list,dial,dial 5555@192.168.0.108,hu,hungup,l,list,a,answer,m'.split(',');
+  var completions = 'help,list,dial,dial 5555@192.168.0.108,hu,hungup,l,list,a,answer,m,hold,r,resume'.split(',');
   var hits = completions.filter(function(c) { return c.indexOf(line) == 0 })
   return [hits.length ? hits : completions, line]
 }
@@ -55,6 +55,7 @@ cliBaresip.dispatch = function( command){
 			console.log( " list");
 			console.log( " answer");
 			console.log( " hungup");
+			console.log( " hold");
 			console.log( " dial 234324@localhost");
 			console.log( " exit/q/quit");
 			break;
@@ -108,6 +109,24 @@ cliBaresip.dispatch = function( command){
 					console.log( "mute err:", err);
 				else
 					console.log( "mute result:", result);
+			});
+			break;
+
+		case "hold":
+			cliBaresip.Baresip.hold( function( err, result){
+				if( err)
+					console.log( "hold err:", err);
+				else
+					console.log( "hold result:", result);
+			});
+			break;
+
+		case "resume":
+			cliBaresip.Baresip.resume( function( err, result){
+				if( err)
+					console.log( "resume err:", err);
+				else
+					console.log( "resume result:", result);
 			});
 			break;
 
