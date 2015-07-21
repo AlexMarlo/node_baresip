@@ -11,11 +11,14 @@ Control
 * answer
 * hangup
 * mute/unmute
+* hold/resume
+* hold previous call (implemented only in this fork https://github.com/AlexMarlo/baresip)
 
 Events
-* end call
-* incoming call
+* end_call
+* incoming_call
 * established_call
+* new_call
 
 Info
 * call list

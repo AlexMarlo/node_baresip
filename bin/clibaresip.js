@@ -6,7 +6,7 @@ var cliBaresip = exports = module.exports = {};
 var commandHistory = [];
 
 function completer(line) {
-  var completions = 'help,list,dial,dial 5555@192.168.0.108,hu,hungup,l,list,a,answer,m,hold,r,resume'.split(',');
+  var completions = 'help,list,dial,dial 5555@192.168.0.108,hu,hungup,l,list,a,answer,m,hold,r,resume,hp'.split(',');
   var hits = completions.filter(function(c) { return c.indexOf(line) == 0 })
   return [hits.length ? hits : completions, line]
 }
@@ -35,13 +35,7 @@ cliBaresip.run = function(){
     cliBaresip.Baresip.on( "end_call", function( call){
         console.log( "Del call", call);
     });
-	cliBaresip.Baresip.run( function( err){
-		if( err)
-		{
-			console.log( " Error at Baresip run:", err);
-			process.exit(0);
-		}
-	})
+	cliBaresip.Baresip.run();
 };
 
 cliBaresip.addToHistory = function( command){
@@ -56,6 +50,8 @@ cliBaresip.dispatch = function( command){
 			console.log( " answer");
 			console.log( " hungup");
 			console.log( " hold");
+			console.log( " resume");
+			console.log( " holdPreviousCall");
 			console.log( " dial 234324@localhost");
 			console.log( " exit/q/quit");
 			break;
@@ -111,6 +107,16 @@ cliBaresip.dispatch = function( command){
 					console.log( "mute result:", result);
 			});
 			break;
+
+		case "hp":
+			cliBaresip.Baresip.holdPreviousCall( function( err, result){
+				if( err)
+					console.log( "holdPreviousCall err:", err);
+				else
+					console.log( "holdPreviousCall result:", result);
+			});
+			break;
+
 
 		case "hold":
 			cliBaresip.Baresip.hold( function( err, result){
