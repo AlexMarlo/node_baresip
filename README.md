@@ -12,7 +12,8 @@ Control
 * hangup
 * mute/unmute
 * hold/resume
-* hold previous call (implemented only in this fork https://github.com/AlexMarlo/baresip)
+* hold previous call
+* switch audio device during call (implemented only in this fork https://github.com/AlexMarlo/baresip)
 
 Events
 * end_call

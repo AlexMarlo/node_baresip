@@ -53,6 +53,7 @@ cliBaresip.dispatch = function( command){
 			console.log( " resume");
 			console.log( " holdPreviousCall");
 			console.log( " dial 234324@localhost");
+			console.log( " switch alsa,default");
 			console.log( " exit/q/quit");
 			break;
 //CALLS---------------------------------------------------------------------------------------------
@@ -63,13 +64,29 @@ cliBaresip.dispatch = function( command){
 				console.log( "call not enough params! example: dial 234324@localhost");
 				break;
 			}
-			
+
 			var sipAddress = command[1];
 			cliBaresip.Baresip.dial( sipAddress, function( err, result){
 				if( err)
 					console.log( "dial err:", err);
 				else
 					console.log( "dial result:", result);
+			});
+			break;
+
+		case "s":
+		case "switch":
+			if( command.length < 2){
+				console.log( "call not enough params! example: switch alsa,default");
+				break;
+			}
+
+			var device = command[1];
+			cliBaresip.Baresip.switchAudioDevice( device, function( err, result){
+				if( err)
+					console.log( "switch err:", err);
+				else
+					console.log( "switch result:", result);
 			});
 			break;
 
