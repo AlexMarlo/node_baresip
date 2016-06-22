@@ -1,6 +1,5 @@
 # Node Baresip
 
-
 ## Objective
 This module will help to control baresip from nodejs.
 
@@ -16,10 +15,11 @@ Control
 * switch audio device during call
 
 Events
-* end_call
-* incoming_call
-* established_call
-* new_call
+* end_call - emits when any call ends
+* incoming_call - emits when new inciming call appear
+* established_call - emits when call answered
+* new_call - emits when new call appear(incoming or outgoing)
+* missed_call - emits when we have not answered outgoing call
 
 Info
 * call list
